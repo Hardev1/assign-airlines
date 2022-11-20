@@ -3,17 +3,32 @@
 const colors = require('tailwindcss/colors')
 
 module.exports = {
-  content: [],
-  theme: {
-    extend: {},
-    colors: {
-      primary: '#151e3b',
-      secondary: '#ff4833'
-    }
-  },
-  plugins: [],
   purge: {
     enabled: true,
     content: ['./src/**/*.{html,ts}'],
   },
+  darkMode: false, // or 'media' or 'class'
+  theme: {
+    extend: {},
+  },
+  variants: {
+    extend: {},
+  },
+  plugins: [],
+  important: true,
+  theme: {
+    extend: {
+      /* backgroundImage: theme => ({
+        'portada':'url(./../../../../assets//img/login-background.png)',
+      }), */
+      colors: {
+        primary_light: colors.lightBlue,
+        primary: '#151e3b',
+        secondary: '#ff4833',
+        warn: colors.yellow,
+        danger: colors.red
+      },
+    },
+  }
+
 }

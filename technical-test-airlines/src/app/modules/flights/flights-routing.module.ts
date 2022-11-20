@@ -4,8 +4,17 @@ import { SearchFlightComponent } from './search-flight/search-flight.component';
 
 const routes: Routes = [
   {
-    path: 'search-flights',
-    component: SearchFlightComponent
+    path: '',
+    children: [
+      {
+        path: '',
+        component: SearchFlightComponent
+      },
+      {
+        path: 'search-flights',
+        component: SearchFlightComponent
+      }
+    ]
   }
 ];
 

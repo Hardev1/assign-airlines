@@ -1,0 +1,23 @@
+#footer.container-fluid {
+  box-sizing: border-box;
+  margin: 0;
+  border: 0;
+  font: inherit;
+  vertical-align: baseline;
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  background-color: #151e3b;
+  color: #fff;
+  font-size: 16px;
+  line-height: 1.35;
+  padding: 29px;
+  bottom: 0;
+}
+
+.row {
+    color: #fff;
+    font-size: 16px;
+    @apply font-sans m-4;
+
+}
