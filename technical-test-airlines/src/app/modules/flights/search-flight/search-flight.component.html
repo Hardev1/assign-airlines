@@ -1,25 +1,24 @@
-
-<div class="bg-primary_light-100 h-full w-full flex justify-center">
-  <div class="w-[90%] md:w-1/2 h-full pt-64 ">
-    <div class="yh-full w-full flex justify-center">
-      <div class="w-[90%] md:w-1/2 h-full pt-64 flex justify-center">
-          <div class="container bg-portada">
-              <form class="form" [formGroup]="form">
-                <h1 class="inicio-s text-primary">Search your journey</h1>
-                <mat-form-field class="ancho" appearance="fill">
-                  <mat-label for="origin" type="text" class="label">Type your origin</mat-label>
-                  <input matInput formControlName="origin" name="origin" class="uppercase" autocomplete="off">
-                </mat-form-field>
-                <mat-form-field class="ancho" appearance="fill">
-                  <mat-label for="destination" type="text" class="label">Type your destination</mat-label>
-                  <input matInput formControlName="destination" name="destination" class="uppercase" autocomplete="off">
-                </mat-form-field>
-                <button type="submit" class="ancho sign-in" (click)="SearchRoute()"
+<div class="content">
+  <div class="content-main">
+    <div class="center-content">
+      <div class="center-content-main">
+        <div class="container">
+          <form class="form" [formGroup]="form">
+            <h1 class="inicio-s">Search your journey</h1>
+            <mat-form-field class="ancho" appearance="fill">
+              <mat-label for="origin" type="text" class="label">Type your origin</mat-label>
+              <input matInput formControlName="origin" name="origin" class="uppercase" autocomplete="off">
+            </mat-form-field>
+            <mat-form-field class="ancho" appearance="fill">
+              <mat-label for="destination" type="text" class="label">Type your destination</mat-label>
+              <input matInput formControlName="destination" name="destination" class="uppercase" autocomplete="off">
+            </mat-form-field>
+            <button type="submit" class="ancho sign-in" (click)="SearchRoute()" 
                 [disabled]="GetForm['origin'].value == GetForm['destination'].value || 
-                GetForm['origin'].errors || GetForm['destination'].errors">Ingresar</button>
-              </form>
-            </div>
+                GetForm['origin'].errors || GetForm['destination'].errors">Search</button>
+          </form>
+        </div>
       </div>
-  </div>
+    </div>
   </div>
 </div>

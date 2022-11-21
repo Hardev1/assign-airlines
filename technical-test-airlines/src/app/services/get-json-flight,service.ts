@@ -1,4 +1,3 @@
-
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -8,7 +7,7 @@ import { JsonFlightsModel } from '../models/jsonflights.model';
 @Injectable({
     providedIn: 'root'
 })
-export class GetFlightService {
+export class GetJSONFlightService {
     url: string = GeneralData.DATA_URL;
 
     constructor(
