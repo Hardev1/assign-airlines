@@ -70,30 +70,13 @@ export class SearchFlightComponent {
   }
 
   SearchRoute() {
-    if (this.form.invalid) {
-    } else {
+    if (!this.form.invalid) {
       this.RecordRouteForm();
       this.GenerateJourneyData();
-      // this.securityService.Login(modelo).subscribe({
-      //   next: (data: any) => {
-      //     if (data.usuario == null) {
-      //       this.clave_incorrecta = "usuario o contra incorrecta";
-      //       // this.GetForm.password.invalid;
-      //       // this.GetForm.username.invalid;
-      //     } else {
-      //       this.checkToken = this.securityService.VerificarToken()
-      //       if (this.checkToken) {
-      //         data.isLoggedIn = true;
-      //         this.localStorage.SaveSessionData(data);
-      //         this.securityService.RefreshSessionData(data);
-      //         this.router.navigate(['/inicio'])
-      //       }
-      //     }
-      //   },
       error: (error: any) => {
         console.log('Error al conectar con el backend');
       }
-    }//);
+    }
   }
 
   RecordRouteForm() {
