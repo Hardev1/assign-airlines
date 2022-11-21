@@ -1,9 +1,9 @@
 import { TransportModel } from "./transport.model";
 
 export class JsonFlightsModel {
-    flightCarrier?: string | undefined;
-    flightNumber?: string   | undefined;
-    origin?: string;
-    destination?: string;
+    flightCarrier?: string;
+    flightNumber?: string;
+    departureStation?: string;
+    arrivalStation?: string;
     price?: number;
 }

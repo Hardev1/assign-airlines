@@ -116,8 +116,8 @@ export class SearchFlightComponent {
 
     for (let i = 0; i < this.transportList.length; i++) {
       let flight = new FlightModel();
-      flight.destination = this.jsonflightList[i].destination,
-      flight.origin = this.jsonflightList[i].origin,
+      flight.destination = this.jsonflightList[i].departureStation,
+      flight.origin = this.jsonflightList[i].arrivalStation,
 
       console.log(this.transport.flightCarrier);
       console.log(this.transport.flightNumber);
@@ -132,12 +132,24 @@ export class SearchFlightComponent {
 
   GetFlightList() {
     this.GetFlightService.GetFlightList().subscribe({
-      next: (flight: JsonFlightsModel[]) => {
-        this.jsonflightList = flight;
-        console.log(this.jsonflightList);
+      next: (jsonflights: JsonFlightsModel[]) => {
+        this.jsonflightList = jsonflights;
+
+        let flight = new FlightModel();
+        let transport = new TransportModel();
+        jsonflights.forEach(jsonflight => {
+          
+          flight.destination = jsonflight.departureStation,
+          flight.origin = jsonflight.arrivalStation,
+          flight.price = jsonflight.price,
+          transport.flightCarrier = jsonflight.flightCarrier,
+          transport.flightNumber = jsonflight.flightNumber,
+          flight.transport = transport
+          this.flightList.push(flight);
+        });
+        console.log(this.flightList);
         
       }
     });
   }
 }
-
