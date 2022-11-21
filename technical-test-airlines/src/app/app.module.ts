@@ -14,6 +14,7 @@ import { FlightsModule } from './modules/flights/flights.module';
 import { SearchFlightComponent } from './modules/flights/search-flight/search-flight.component';
 import { MaterialModule } from './public/material.module';
 import { AbstractControl, FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { AbstractControl, FormBuilder, FormGroup, Validators, ReactiveFormsModul
     BrowserAnimationsModule,
     MaterialModule,
     ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

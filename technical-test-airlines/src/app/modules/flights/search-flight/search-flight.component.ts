@@ -6,12 +6,15 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { RouteModel } from '../../../models/route.model';
 import { GeneralData } from '../../../config/general-data';
+import { FlightModel } from 'src/app/models/flight.model';
 // import { InfoComponent } from '../../shared/components/modals/info/info.component';
 // import { UserCredentialsModel } from '../../../models/sesion/user-credentials.models';
 // import { MD5 } from 'crypto-js';
 // import { SecurityService } from 'src/app/services/shared/security.service';
 // import { RolModel } from '../../shared/modelos/rol.model';
-// import { RolService } from 'src/app/services/shared/rol.service';
+import { GetFlightService } from '../../../services/get-flight,service';
+import { TransportModel } from 'src/app/models/transport.model';
+import { JsonFlightsModel } from 'src/app/models/jsonflights.model';
 // import { LocalStorageService } from 'src/app/services/shared/local-storage.service';
 
 @Component({
@@ -20,7 +23,10 @@ import { GeneralData } from '../../../config/general-data';
   styleUrls: ['./search-flight.component.css']
 })
 export class SearchFlightComponent {
-  //recordList: RolModel[] = []
+  transport = new TransportModel();
+  jsonflightList: JsonFlightsModel[] = [];
+  flightList: FlightModel[] = [];
+  transportList: TransportModel[] = [];
   form: FormGroup = new FormGroup({
   });
   hide: boolean = true;
@@ -28,10 +34,14 @@ export class SearchFlightComponent {
 
   constructor(
     private fb: FormBuilder,
+    private GetFlightService: GetFlightService
   ) { }
 
   ngOnInit(): void {
     this.CreateForm();
+    this.GetFlightList();
+    /*console.log(this.flightList);
+    console.log(typeof this.flightList);*/
   }
 
   CreateForm() {
@@ -62,7 +72,8 @@ export class SearchFlightComponent {
   SearchRoute() {
     if (this.form.invalid) {
     } else {
-      this.RecordDataForm();
+      this.RecordRouteForm();
+      this.GenerateJourneyData();
       // this.securityService.Login(modelo).subscribe({
       //   next: (data: any) => {
       //     if (data.usuario == null) {
@@ -85,19 +96,48 @@ export class SearchFlightComponent {
     }//);
   }
 
-  RecordDataForm() {
+  RecordRouteForm() {
     let route = new RouteModel();
-      route.origin = this.form.controls["origin"].value;
-      route.destination = this.form.controls["destination"].value;
-      console.log(route);
+    route.origin = this.form.controls["origin"].value.toUpperCase();
+    route.destination = this.form.controls["destination"].value.toUpperCase();
+    console.log(route);
+  }
+
+  GenerateJourneyData() {
+    console.log(this.jsonflightList);
+    this.jsonflightList.forEach(jsonflight => {
+      
+      this.transport.flightCarrier = jsonflight.flightCarrier,
+      this.transport.flightNumber = jsonflight.flightNumber;
+      
+      this.transportList.push(this.transport);
+    });
+    console.log(this.jsonflightList);
+
+    for (let i = 0; i < this.transportList.length; i++) {
+      let flight = new FlightModel();
+      flight.destination = this.jsonflightList[i].destination,
+      flight.origin = this.jsonflightList[i].origin,
+
+      console.log(this.transport.flightCarrier);
+      console.log(this.transport.flightNumber);
+      
+      flight.transport!.flightCarrier = this.transport.flightCarrier,
+      flight.transport!.flightNumber = this.transport.flightNumber,
+      flight.price = this.jsonflightList[i].price;
+
+      this.jsonflightList.push(flight)
+    }
+  }
+
+  GetFlightList() {
+    this.GetFlightService.GetFlightList().subscribe({
+      next: (flight: JsonFlightsModel[]) => {
+        this.jsonflightList = flight;
+        console.log(this.jsonflightList);
+        
+      }
+    });
   }
 }
-
-  // GetRecordList() {
-  //   this.service.GetRecordList().subscribe({
-  //     next: (data: RolModel[]) => {
-  //       this.recordList = data;
-  //     }
-  //   });
-  // }
 

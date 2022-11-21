@@ -1,4 +1,4 @@
 export class TransportModel{
-    flightCarrier?: string;
-    flightNumber?: string;
+    flightCarrier?: string | undefined;
+    flightNumber?: string | undefined;
 }
