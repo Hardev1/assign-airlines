@@ -5,6 +5,7 @@ import { FlightModel } from 'src/app/models/flight.model';
 import { GeneralData } from '../../../config/general-data';
 import { GetFlightService } from '../../../services/models/get-flight.service';
 import { GenerateJourneyService } from '../../../services/models/generate-journey.service';
+import { DepartureStationService } from "../../../services/models/departurestation.service";
 
 @Component({
   selector: 'app-search-flight',
@@ -14,12 +15,15 @@ import { GenerateJourneyService } from '../../../services/models/generate-journe
 
 export class SearchFlightComponent {
   flightList: FlightModel[] = [];
+  route = new RouteModel();
   form: FormGroup = new FormGroup({});
+  departureList: String[] = [];
 
   constructor(
     private fb: FormBuilder,
     private GetFlightService: GetFlightService,
-    private GenerateJourneyService: GenerateJourneyService
+    private GenerateJourneyService: GenerateJourneyService,
+    private DepartureStationService: DepartureStationService
   ) { }
 
   ngOnInit(): void {
@@ -53,9 +57,9 @@ export class SearchFlightComponent {
   }
 
   SearchRoute() {
-    if (!this.form.invalid) {
+    if (this.form.valid) {
       this.RecordRouteForm();
-      this.GenerateJourneyService.GenerateJourneyData();
+      this.GenerateJourneyService.GenerateJourneyData(this.flightList, this.route.origin!); // Problem 3
       error: (error: any) => {
         console.log(GeneralData.ERROR_CONNECTION);
       }
@@ -63,8 +67,7 @@ export class SearchFlightComponent {
   }
 
   RecordRouteForm() {
-    let route = new RouteModel();
-    route.origin = this.form.controls["origin"].value.toUpperCase();
-    route.destination = this.form.controls["destination"].value.toUpperCase();
+    this.route.origin = this.form.controls["origin"].value.toUpperCase();
+    this.route.destination = this.form.controls["destination"].value.toUpperCase();
   }
 }

@@ -34,7 +34,6 @@ export class GetFlightService {
                     this.flightList.push(flight);
                 });
                 }
-            
         });
         return this.flightList;
     }
